@@ -1,6 +1,6 @@
 # Package
 
-**TODO: Add description**
+Build, Publish & Deploy Infrastructure to the Cloud
 
 ## Installation
 
@@ -10,12 +10,7 @@ by adding `package` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:package, "~> 0.1.0"}
+    {:package, "~> 0.0.1"}
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/package](https://hexdocs.pm/package).
-
