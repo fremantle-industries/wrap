@@ -30,7 +30,7 @@ defmodule Wrap.MixProject do
   end
 
   defp description do
-    "Build, publish & manage deployment of packages with terraform & docker"
+    "Build, Publish & Deploy Infrastructure to the Cloud"
   end
 
   defp package do
