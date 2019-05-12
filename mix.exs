@@ -6,6 +6,8 @@ defmodule Package.MixProject do
       app: :package,
       version: "0.0.1",
       elixir: "~> 1.8",
+      description: description(),
+      package: package(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: [flags: [:error_handling, :unmatched_returns, :underspecs], plt_add_apps: [:mix]]
@@ -25,5 +27,17 @@ defmodule Package.MixProject do
       {:dialyxir, "~> 1.0.0-rc.6", only: [:dev], runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
+  end
+
+  defp description do
+    "Build, publish & manage deployment of packages with terraform & docker"
+  end
+
+  defp package do
+    %{
+      licenses: ["MIT"],
+      maintainers: ["Alex Kwiatkowski"],
+      links: %{"GitHub" => "https://github.com/fremantle-capital/package"}
+    }
   end
 end
