@@ -2,7 +2,7 @@ defmodule Mix.Tasks.Wrap.Apply do
   @moduledoc """
   Apply the terraform definition for packages published to the container registry
 
-  mix package.apply package_a package_b
+  mix wrap.apply package_a package_b
   """
 
   use Mix.Task

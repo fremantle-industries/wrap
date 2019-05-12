@@ -2,7 +2,7 @@ defmodule Mix.Tasks.Wrap.Plan do
   @moduledoc """
   Plan the terraform definition for packages published to the container registry
 
-  mix package.plan package_a package_b
+  mix wrap.plan package_a package_b
   """
 
   use Mix.Task

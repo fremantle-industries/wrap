@@ -2,7 +2,7 @@ defmodule Mix.Tasks.Wrap.Destroy do
   @moduledoc """
   Destroy the cloud resources used in the deployment for each package
 
-  mix package.destroy package_a package_b
+  mix wrap.destroy package_a package_b
   """
 
   use Mix.Task

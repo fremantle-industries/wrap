@@ -2,13 +2,13 @@ defmodule Mix.Tasks.Wrap.Publish do
   @moduledoc """
   Publish the latest docker images that have been built on the local docker instance
 
-  mix package.publish release_a release_b
+  mix wrap.publish release_a release_b
   """
 
   use Mix.Task
 
   @cli_config [
-    name: "package.publish",
+    name: "wrap.publish",
     description:
       "Publish the latest docker images that have been built on the local docker instance",
     about: "Task for publishing docker images",

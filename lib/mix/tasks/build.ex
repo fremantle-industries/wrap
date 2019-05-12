@@ -3,13 +3,13 @@ defmodule Mix.Tasks.Wrap.Build do
   Build docker images from distillery releases. Images can be 
   published for consumption to a container registry.
 
-  mix package.build -r gcr.io -p my-project package_a package_b
+  mix wrap.build -r gcr.io -p my-project package_a package_b
   """
 
   use Mix.Task
 
   @cli_config [
-    name: "package.build",
+    name: "wrap.build",
     description: "Build docker images from distillery releases",
     about: "Task for building packages",
     allow_unknown_args: true,
