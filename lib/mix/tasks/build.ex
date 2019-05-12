@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Package.Build do
+defmodule Mix.Tasks.Wrap.Build do
   @moduledoc """
   Build docker images from distillery releases. Images can be 
   published for consumption to a container registry.
@@ -47,16 +47,16 @@ defmodule Mix.Tasks.Package.Build do
     cli.unknown |> packages() |> build_all(cli)
   end
 
-  def packages([]), do: Package.list()
-  def packages(packages), do: packages |> Package.list_only()
+  def packages([]), do: Wrap.list()
+  def packages(packages), do: packages |> Wrap.list_only()
 
   defp build_all(packages, cli), do: packages |> Enum.each(&build_image(&1, cli))
 
   defp build_image(name, %Optimus.ParseResult{
          options: %{dockerfile: dockerfile, registry: registry, project: project}
        }) do
-    version = Package.version(name)
-    hyphen_name = name |> Package.hyphen_name()
+    version = Wrap.version(name)
+    hyphen_name = name |> Wrap.hyphen_name()
     image = [project, hyphen_name] |> Enum.join("/")
 
     "docker"

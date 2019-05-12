@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Package.Apply do
+defmodule Mix.Tasks.Wrap.Apply do
   @moduledoc """
   Apply the terraform definition for packages published to the container registry
 
@@ -8,14 +8,14 @@ defmodule Mix.Tasks.Package.Apply do
   use Mix.Task
 
   @shortdoc "Apply terraform definition"
-  def run([]), do: Package.list() |> apply_each()
-  def run(packages), do: packages |> Package.list_only() |> apply_each()
+  def run([]), do: Wrap.list() |> apply_each()
+  def run(packages), do: packages |> Wrap.list_only() |> apply_each()
 
   defp apply_each(packages), do: packages |> Enum.each(&apply/1)
 
   defp apply(name) do
-    hyphen_name = name |> Package.hyphen_name()
-    env = name |> Package.read_env()
+    hyphen_name = name |> Wrap.hyphen_name()
+    env = name |> Wrap.read_env()
 
     "terraform"
     |> System.cmd(

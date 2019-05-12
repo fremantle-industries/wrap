@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Package.Destroy do
+defmodule Mix.Tasks.Wrap.Destroy do
   @moduledoc """
   Destroy the cloud resources used in the deployment for each package
 
@@ -18,7 +18,7 @@ defmodule Mix.Tasks.Package.Destroy do
     packages
     |> Enum.each(fn name ->
       hyphenated = name |> hyphen_name()
-      env = name |> Package.read_env()
+      env = name |> Wrap.read_env()
 
       @terraform
       |> System.cmd(

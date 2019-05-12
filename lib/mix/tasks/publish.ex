@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Package.Publish do
+defmodule Mix.Tasks.Wrap.Publish do
   @moduledoc """
   Publish the latest docker images that have been built on the local docker instance
 
@@ -39,15 +39,15 @@ defmodule Mix.Tasks.Package.Publish do
     cli.unknown |> packages() |> build_all(cli)
   end
 
-  def packages([]), do: Package.list()
-  def packages(packages), do: packages |> Package.list_only()
+  def packages([]), do: Wrap.list()
+  def packages(packages), do: packages |> Wrap.list_only()
 
   defp build_all(packages, cli), do: packages |> Enum.each(&build_image(&1, cli))
 
   defp build_image(name, %Optimus.ParseResult{
          options: %{registry: registry, project: project}
        }) do
-    hyphen_name = name |> Package.hyphen_name()
+    hyphen_name = name |> Wrap.hyphen_name()
     image = [project, hyphen_name] |> Enum.join("/")
 
     "docker"

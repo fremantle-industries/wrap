@@ -1,9 +1,9 @@
-defmodule Package.MixProject do
+defmodule Wrap.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :package,
+      app: :wrap,
       version: "0.0.1",
       elixir: "~> 1.8",
       description: description(),
@@ -37,7 +37,7 @@ defmodule Package.MixProject do
     %{
       licenses: ["MIT"],
       maintainers: ["Alex Kwiatkowski"],
-      links: %{"GitHub" => "https://github.com/fremantle-capital/package"}
+      links: %{"GitHub" => "https://github.com/fremantle-capital/wrap"}
     }
   end
 end

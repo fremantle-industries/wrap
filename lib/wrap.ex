@@ -1,4 +1,4 @@
-defmodule Package do
+defmodule Wrap do
   @moduledoc """
   Application to build, publish & management deployment of packages
   """

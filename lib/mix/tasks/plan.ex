@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Package.Plan do
+defmodule Mix.Tasks.Wrap.Plan do
   @moduledoc """
   Plan the terraform definition for packages published to the container registry
 
@@ -8,14 +8,14 @@ defmodule Mix.Tasks.Package.Plan do
   use Mix.Task
 
   @shortdoc "Plan terraform definition"
-  def run([]), do: Package.list() |> plan_each()
-  def run(packages), do: packages |> Package.list_only() |> plan_each()
+  def run([]), do: Wrap.list() |> plan_each()
+  def run(packages), do: packages |> Wrap.list_only() |> plan_each()
 
   defp plan_each(packages), do: packages |> Enum.each(&plan/1)
 
   defp plan(name) do
-    hyphen_name = name |> Package.hyphen_name()
-    env = name |> Package.read_env()
+    hyphen_name = name |> Wrap.hyphen_name()
+    env = name |> Wrap.read_env()
 
     "terraform"
     |> System.cmd(

@@ -1,4 +1,4 @@
-defmodule Mix.Tasks.Package.List do
+defmodule Mix.Tasks.Wrap.List do
   @moduledoc """
   List packages that can be deployed
   """
@@ -6,5 +6,5 @@ defmodule Mix.Tasks.Package.List do
   use Mix.Task
 
   @shortdoc "List packages"
-  def run(_), do: Package.list() |> Enum.map(&IO.puts/1)
+  def run(_), do: Wrap.list() |> Enum.map(&IO.puts/1)
 end
