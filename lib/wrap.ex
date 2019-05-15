@@ -41,5 +41,5 @@ defmodule Wrap do
   end
 
   @spec read_env(String.t()) :: map
-  def read_env(name), do: read_env(name, :prod)
+  def read_env(name), do: read_env(name, Mix.env())
 end
