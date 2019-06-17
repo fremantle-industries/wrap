@@ -1,6 +1,6 @@
 defmodule Mix.Tasks.Wrap.Build do
   @moduledoc """
-  Build docker images from distillery releases. Images can be 
+  Build docker images from distillery releases. Images can be
   published for consumption to a container registry.
 
   mix wrap.build -r gcr.io -p my-project package_a package_b
@@ -34,8 +34,7 @@ defmodule Mix.Tasks.Wrap.Build do
         short: "-d",
         long: "--dockerfile",
         help: "Path to Dockerfile that will be built",
-        required: false,
-        default: "./Dockerfile"
+        required: true
       ]
     ]
   ]
