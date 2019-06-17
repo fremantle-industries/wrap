@@ -1,6 +1,6 @@
 defmodule Wrap do
   @moduledoc """
-  Application to build, publish & management deployment of packages
+  Application to build, publish & manage deployment of packages
   """
 
   @path "packages/releases"
