@@ -9,7 +9,7 @@ Add `wrap` to your list of dependencies in `mix.exs`
 ```elixir
 def deps do
   [
-    {:wrap, "~> 0.0.2"}
+    {:wrap, "~> 0.0.3"}
   ]
 end
 ```
