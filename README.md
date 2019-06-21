@@ -29,3 +29,20 @@ mix wrap.plan          # Plan terraform definition
 mix wrap.apply         # Apply terraform definition
 mix wrap.destroy       # Destroy terraform resources
 ```
+
+## Commands
+
+### mix wrap.list
+
+Lists directories for the release packages in `packages/releases`. The name of these directories 
+are used for all subsequent commands.
+
+### mix.wrap.build package_a package_b
+
+### mix.wrap.publish package_a package_b
+
+### mix.wrap.plan package_a package_b
+
+### mix.wrap.apply package_a package_b
+
+### mix.wrap.destroy package_a package_b
