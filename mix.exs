@@ -30,7 +30,7 @@ defmodule Wrap.MixProject do
   end
 
   defp description do
-    "Build, Publish & Deploy Infrastructure to the Cloud"
+    "Build, Publish & Deploy Elixir Infrastructure to the Cloud with Distillery, Docker & Terraform"
   end
 
   defp package do
