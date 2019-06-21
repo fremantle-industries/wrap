@@ -26,5 +26,5 @@ mix wrap.build         # Build docker images from distillery releases
 mix wrap.publish       # Publish latest docker images
 mix wrap.plan          # Plan terraform definition
 mix wrap.apply         # Apply terraform definition
-mix wrap.destroy       # Destroy packages
+mix wrap.destroy       # Destroy terraform resources
 ```
