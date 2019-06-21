@@ -1,6 +1,10 @@
 # Wrap
 
-Build, Publish & Deploy Infrastructure to the Cloud
+Build, Publish & Deploy Elixir Infrastructure to the Cloud.
+
+`wrap` is a set of `mix` tasks that use [Distillery](https://github.com/bitwalker/distillery) to 
+build an OTP release within [Docker](https://www.docker.com/), publish the container to a registry and 
+deploy to cloud infrastructure via [Terraform](https://www.terraform.io/).
 
 ## Installation
 
