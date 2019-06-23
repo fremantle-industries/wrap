@@ -1,0 +1,5 @@
+{
+  "project": "project_within_c",
+  "registry": "registry_within_c",
+  "dockerfile": "dockerfile_within_c"
+}

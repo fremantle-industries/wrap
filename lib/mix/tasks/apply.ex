@@ -1,32 +1,49 @@
 defmodule Mix.Tasks.Wrap.Apply do
   @moduledoc """
   Apply the terraform definition for packages published to the container registry
-
-  mix wrap.apply package_a package_b
   """
 
   use Mix.Task
 
+  @cli_config [
+    name: "wrap.apply",
+    description: "Deploy packages to the cloud with Terraform",
+    about: """
+    Examples:
+
+    mix wrap.apply my_package
+    mix wrap.apply nested_package.a nested_package.b
+    mix wrap.apply nested_package.*
+
+    NOTE: Juice query language https://github.com/rupurt/juice
+    """,
+    allow_unknown_args: true
+  ]
+
   @shortdoc "Apply terraform definition"
-  def run([]), do: Wrap.list() |> apply_each()
-  def run(packages), do: packages |> Wrap.list_only() |> apply_each()
+  @spec run([String.t()]) :: no_return
+  def run(argv) do
+    @cli_config
+    |> Optimus.new!()
+    |> Optimus.parse!(argv)
+    |> Map.fetch!(:unknown)
+    |> packages()
+    |> Enum.each(&apply/1)
+  end
 
-  defp apply_each(packages), do: packages |> Enum.each(&apply/1)
+  defp packages(argv), do: argv |> Enum.join(" ") |> Wrap.Packages.query()
 
-  defp apply(name) do
-    hyphen_name = name |> Wrap.hyphen_name()
-    env = name |> Wrap.read_env()
-
+  defp apply(package) do
     "terraform"
     |> System.cmd(
       [
         "apply",
         "-auto-approve",
         "-var",
-        "release_name=#{hyphen_name}"
+        "release_name=#{Wrap.Package.hyphenize(package.name)}"
       ],
-      cd: "./packages/releases/#{name}",
-      env: env,
+      cd: "./packages/releases/#{package.name}",
+      env: Wrap.Env.read(package),
       into: IO.stream(:stdio, :line)
     )
   end

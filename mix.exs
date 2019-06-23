@@ -24,6 +24,9 @@ defmodule Wrap.MixProject do
     [
       {:optimus, "~> 0.1.0"},
       {:distillery, "~> 2.0"},
+      {:jason, "~> 1.1"},
+      {:mapail, "~> 1.0"},
+      {:juice, "~> 0.0.3"},
       {:dialyxir, "~> 1.0.0-rc.6", only: [:dev], runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]

@@ -7,25 +7,44 @@ defmodule Mix.Tasks.Wrap.Plan do
 
   use Mix.Task
 
+  @cli_config [
+    name: "wrap.plan",
+    description: "Display Terraform plan for packages",
+    about: """
+    Examples:
+
+    mix wrap.plan my_package
+    mix wrap.plan nested_package.a nested_package.b
+    mix wrap.plan nested_package.*
+
+    NOTE: Juice query language https://github.com/rupurt/juice
+    """,
+    allow_unknown_args: true
+  ]
+
   @shortdoc "Plan terraform definition"
-  def run([]), do: Wrap.list() |> plan_each()
-  def run(packages), do: packages |> Wrap.list_only() |> plan_each()
+  @spec run([String.t()]) :: no_return
+  def run(argv) do
+    @cli_config
+    |> Optimus.new!()
+    |> Optimus.parse!(argv)
+    |> Map.fetch!(:unknown)
+    |> packages()
+    |> Enum.each(&plan/1)
+  end
 
-  defp plan_each(packages), do: packages |> Enum.each(&plan/1)
+  defp packages(argv), do: argv |> Enum.join(" ") |> Wrap.Packages.query()
 
-  defp plan(name) do
-    hyphen_name = name |> Wrap.hyphen_name()
-    env = name |> Wrap.read_env()
-
+  defp plan(package) do
     "terraform"
     |> System.cmd(
       [
         "plan",
         "-var",
-        "release_name=#{hyphen_name}"
+        "release_name=#{Wrap.Package.hyphenize(package.name)}"
       ],
-      cd: "./packages/releases/#{name}",
-      env: env,
+      cd: "./packages/releases/#{package.name}",
+      env: Wrap.Env.read(package),
       into: IO.stream(:stdio, :line)
     )
   end

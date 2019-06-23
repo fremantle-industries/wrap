@@ -1,39 +1,50 @@
 defmodule Mix.Tasks.Wrap.Destroy do
   @moduledoc """
   Destroy the cloud resources used in the deployment for each package
-
-  mix wrap.destroy package_a package_b
   """
 
   use Mix.Task
 
+  @cli_config [
+    name: "wrap.destroy",
+    description: "Destroy cloud resources for deployed packages",
+    about: """
+    Examples:
+
+    mix wrap.destroy my_package
+    mix wrap.destroy nested_package.a nested_package.b
+    mix wrap.destroy nested_package.*
+
+    NOTE: Juice query language https://github.com/rupurt/juice
+    """,
+    allow_unknown_args: true
+  ]
+
   @shortdoc "Destroy packages"
-  def run([]) do
-    :stderr |> IO.puts(IO.ANSI.format([:red, "one or more package names are required"]))
-    :stderr |> IO.puts("usage: mix package.destroy package_a package_b")
+  @spec run([String.t()]) :: no_return
+  def run(argv) do
+    @cli_config
+    |> Optimus.new!()
+    |> Optimus.parse!(argv)
+    |> Map.fetch!(:unknown)
+    |> packages()
+    |> Enum.each(&destroy/1)
   end
 
-  @terraform "terraform"
-  def run(packages) do
-    packages
-    |> Enum.each(fn name ->
-      hyphenated = name |> hyphen_name()
-      env = name |> Wrap.read_env()
+  defp packages(argv), do: argv |> Enum.join(" ") |> Wrap.Packages.query()
 
-      @terraform
-      |> System.cmd(
-        [
-          "destroy",
-          "-auto-approve",
-          "-var",
-          "release_name=#{hyphenated}"
-        ],
-        cd: "./packages/releases/#{name}",
-        env: env,
-        into: IO.stream(:stdio, :line)
-      )
-    end)
+  defp destroy(package) do
+    "terraform"
+    |> System.cmd(
+      [
+        "destroy",
+        "-auto-approve",
+        "-var",
+        "release_name=#{Wrap.Package.hyphenize(package.name)}"
+      ],
+      cd: "./packages/releases/#{package.name}",
+      env: Wrap.Env.read(package),
+      into: IO.stream(:stdio, :line)
+    )
   end
-
-  defp hyphen_name(name), do: name |> String.replace("_", "-")
 end

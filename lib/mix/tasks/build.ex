@@ -2,8 +2,6 @@ defmodule Mix.Tasks.Wrap.Build do
   @moduledoc """
   Build docker images from distillery releases. Images can be
   published for consumption to a container registry.
-
-  mix wrap.build -r gcr.io -p my-project package_a package_b
   """
 
   use Mix.Task
@@ -11,53 +9,32 @@ defmodule Mix.Tasks.Wrap.Build do
   @cli_config [
     name: "wrap.build",
     description: "Build docker images from distillery releases",
-    about: "Task for building packages",
-    allow_unknown_args: true,
-    parse_double_dash: true,
-    options: [
-      registry: [
-        value_name: "REGISTRY",
-        short: "-r",
-        long: "--registry",
-        help: "Docker registry",
-        required: true
-      ],
-      project: [
-        value_name: "PROJECT",
-        short: "-p",
-        long: "--project",
-        help: "Project on the registry",
-        required: true
-      ],
-      dockerfile: [
-        value_name: "DOCKERFILE",
-        short: "-d",
-        long: "--dockerfile",
-        help: "Path to Dockerfile that will be built",
-        required: true
-      ]
-    ]
+    about: """
+    Examples:
+
+    mix wrap.build my_package
+    mix wrap.build nested_package.a nested_package.b
+    mix wrap.build nested_package.*
+
+    NOTE: Juice query language https://github.com/rupurt/juice
+    """,
+    allow_unknown_args: true
   ]
 
   @shortdoc "Build docker images from distillery releases"
   @spec run([String.t()]) :: no_return
   def run(argv) do
-    cli = Optimus.new!(@cli_config) |> Optimus.parse!(argv)
-    cli.unknown |> packages() |> build_all(cli)
+    @cli_config
+    |> Optimus.new!()
+    |> Optimus.parse!(argv)
+    |> Map.fetch!(:unknown)
+    |> packages()
+    |> Enum.each(&build/1)
   end
 
-  def packages([]), do: Wrap.list()
-  def packages(packages), do: packages |> Wrap.list_only()
+  defp packages(argv), do: argv |> Enum.join(" ") |> Wrap.Packages.query()
 
-  defp build_all(packages, cli), do: packages |> Enum.each(&build_image(&1, cli))
-
-  defp build_image(name, %Optimus.ParseResult{
-         options: %{dockerfile: dockerfile, registry: registry, project: project}
-       }) do
-    version = Wrap.version(name)
-    hyphen_name = name |> Wrap.hyphen_name()
-    image = [project, hyphen_name] |> Enum.join("/")
-
+  defp build(package) do
     "docker"
     |> System.cmd(
       [
@@ -65,15 +42,15 @@ defmodule Mix.Tasks.Wrap.Build do
         "build",
         ".",
         "-f",
-        dockerfile,
+        package.dockerfile,
         "-t",
-        "#{image}:latest",
+        "#{Wrap.Package.image(package)}:latest",
         "-t",
-        "#{registry}/#{image}:latest",
+        "#{Wrap.Package.registry_image(package)}:latest",
         "--build-arg",
-        "name=#{name}",
+        "name=#{package.name}",
         "--build-arg",
-        "version=#{version}"
+        "version=#{package.version}"
       ],
       into: IO.stream(:stdio, :line)
     )
