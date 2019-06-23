@@ -4,7 +4,7 @@ defmodule Wrap.MixProject do
   def project do
     [
       app: :wrap,
-      version: "0.0.4",
+      version: "0.0.5",
       elixir: "~> 1.8",
       description: description(),
       package: package(),
