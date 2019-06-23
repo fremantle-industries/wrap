@@ -1,4 +1,5 @@
 # Wrap
+[![CircleCI](https://circleci.com/gh/fremantle-capital/wrap.svg?style=svg)](https://circleci.com/gh/fremantle-capital/wrap)
 
 Build, Publish & Deploy Elixir Infrastructure to the Cloud.
 
