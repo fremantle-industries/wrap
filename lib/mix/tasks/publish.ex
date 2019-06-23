@@ -39,7 +39,7 @@ defmodule Mix.Tasks.Wrap.Publish do
     |> System.cmd(
       [
         "push",
-        "#{package.registry_image}:latest"
+        "#{Wrap.Package.registry_image(package)}:latest"
       ],
       into: IO.stream(:stdio, :line)
     )
