@@ -5,7 +5,7 @@ defmodule Wrap.MixProject do
     [
       app: :wrap,
       version: "0.0.5",
-      elixir: "~> 1.8",
+      elixir: "~> 1.9",
       description: description(),
       package: package(),
       start_permanent: Mix.env() == :prod,
