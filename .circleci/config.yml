@@ -1,7 +1,7 @@
 jobs:
   "elixir-1.8":
     docker:
-      - image: circleci/elixir:1.8
+      - image: circleci/elixir:1.9
 
     working_directory: ~/repo
     steps:
