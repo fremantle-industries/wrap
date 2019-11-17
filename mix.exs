@@ -10,7 +10,9 @@ defmodule Wrap.MixProject do
       package: package(),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      dialyzer: [flags: [:error_handling, :unmatched_returns, :underspecs], plt_add_apps: [:mix]]
+      dialyzer: [
+        plt_add_apps: [:mix]
+      ]
     ]
   end
 
@@ -27,7 +29,7 @@ defmodule Wrap.MixProject do
       {:jason, "~> 1.1"},
       {:mapail, "~> 1.0"},
       {:juice, "~> 0.0.3"},
-      {:dialyxir, "~> 1.0.0-rc.6", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
