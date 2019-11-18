@@ -1,0 +1,27 @@
+variable "release_name" {
+  type = "string"
+}
+
+variable "gcp_region" {
+  type    = "string"
+  default = "asia-east2"
+}
+
+variable "gcp_zone" {
+  type    = "string"
+  default = "a"
+}
+
+variable "machine_type" {
+  type    = "string"
+  default = "n1-standard-1"
+}
+
+module "my_module" {
+  source = "../../modules/my_module"
+
+  release_name = "${var.release_name}"
+  gcp_region = "${var.gcp_region}"
+  gcp_zone = "${var.gcp_zone}"
+  machine_type = "${var.machine_type}"
+}

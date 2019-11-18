@@ -19,13 +19,44 @@ def deps do
 end
 ```
 
-## Usage
+## Setup
+
+Before using `wrap` run the setup task to create the required directory structure.
 
 ```
-mix wrap.list          # List packages
-mix wrap.build         # Build docker images from distillery releases
-mix wrap.publish       # Publish latest docker images
-mix wrap.plan          # Plan terraform definition
-mix wrap.apply         # Apply terraform definition
-mix wrap.destroy       # Destroy terraform resources
+mix wrap.setup
+```
+
+## Tasks
+
+```
+mix wrap.gen.module     # Scaffold a module
+```
+
+```
+mix wrap.gen.release    # Scaffold a release
+```
+
+```
+mix wrap.list           # List packages
+```
+
+```
+mix wrap.build          # Build docker images from distillery releases
+```
+
+```
+mix wrap.publish        # Publish latest docker images
+```
+
+```
+mix wrap.plan           # Plan terraform definition
+```
+
+```
+mix wrap.apply          # Apply terraform definition
+```
+
+```
+mix wrap.destroy        # Destroy terraform resources
 ```
