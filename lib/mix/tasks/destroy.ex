@@ -23,6 +23,8 @@ defmodule Mix.Tasks.Wrap.Destroy do
   @shortdoc "Destroy packages"
   @spec run([String.t()]) :: no_return
   def run(argv) do
+    Wrap.Mix.Support.setup()
+
     @cli_config
     |> Optimus.new!()
     |> Optimus.parse!(argv)

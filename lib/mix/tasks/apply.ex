@@ -23,6 +23,8 @@ defmodule Mix.Tasks.Wrap.Apply do
   @shortdoc "Apply terraform definition"
   @spec run([String.t()]) :: no_return
   def run(argv) do
+    Wrap.Mix.Support.setup()
+
     @cli_config
     |> Optimus.new!()
     |> Optimus.parse!(argv)

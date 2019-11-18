@@ -24,6 +24,8 @@ defmodule Mix.Tasks.Wrap.Build do
   @shortdoc "Build docker images from distillery releases"
   @spec run([String.t()]) :: no_return
   def run(argv) do
+    Wrap.Mix.Support.setup()
+
     @cli_config
     |> Optimus.new!()
     |> Optimus.parse!(argv)

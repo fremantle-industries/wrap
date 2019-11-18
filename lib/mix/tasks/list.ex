@@ -8,6 +8,8 @@ defmodule Mix.Tasks.Wrap.List do
   @shortdoc "List packages"
   @spec run(term) :: no_return
   def run(_) do
+    Wrap.Mix.Support.setup()
+
     "*"
     |> Wrap.Packages.query()
     |> Enum.map(& &1.name)

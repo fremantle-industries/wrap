@@ -25,6 +25,8 @@ defmodule Mix.Tasks.Wrap.Plan do
   @shortdoc "Plan terraform definition"
   @spec run([String.t()]) :: no_return
   def run(argv) do
+    Wrap.Mix.Support.setup()
+
     @cli_config
     |> Optimus.new!()
     |> Optimus.parse!(argv)
