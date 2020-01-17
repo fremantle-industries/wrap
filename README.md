@@ -1,5 +1,5 @@
 # Wrap
-[![CircleCI](https://circleci.com/gh/fremantle-capital/wrap.svg?style=svg)](https://circleci.com/gh/fremantle-capital/wrap)
+[![Build Status](https://github.com/fremantle-capital/wrap/workflows/.github/workflows/test.yml/badge.svg)](https://github.com/fremantle-capital/wrap/actions?query=workflow%3A.github%2Fworkflows%2Ftest.yml)
 
 Build, Publish & Deploy Elixir Infrastructure to the Cloud.
 

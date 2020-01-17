@@ -12,6 +12,13 @@ defmodule Wrap.MixProject do
       deps: deps(),
       dialyzer: [
         plt_add_apps: [:mix, :ex_unit]
+      ],
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test
       ]
     ]
   end
@@ -30,6 +37,7 @@ defmodule Wrap.MixProject do
       {:mapail, "~> 1.0"},
       {:juice, "~> 0.0.3"},
       {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
+      {:excoveralls, "~> 0.10", only: :test},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
