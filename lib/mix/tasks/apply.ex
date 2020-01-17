@@ -27,13 +27,15 @@ defmodule Mix.Tasks.Wrap.Apply do
 
     @cli_config
     |> Optimus.new!()
-    |> Optimus.parse!(argv)
-    |> Map.fetch!(:unknown)
-    |> packages()
-    |> Enum.each(&apply/1)
+    |> Optimus.parse(argv)
+    |> case do
+      {:ok, parse_result} ->
+        parse_result.unknown
+        |> Enum.join(" ")
+        |> Wrap.Packages.query()
+        |> Enum.each(&apply/1)
+    end
   end
-
-  defp packages(argv), do: argv |> Enum.join(" ") |> Wrap.Packages.query()
 
   defp apply(package) do
     "terraform"

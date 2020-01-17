@@ -28,13 +28,15 @@ defmodule Mix.Tasks.Wrap.Publish do
 
     @cli_config
     |> Optimus.new!()
-    |> Optimus.parse!(argv)
-    |> Map.fetch!(:unknown)
-    |> packages()
-    |> Enum.each(&build/1)
+    |> Optimus.parse(argv)
+    |> case do
+      {:ok, parse_result} ->
+        parse_result.unknown
+        |> Enum.join(" ")
+        |> Wrap.Packages.query()
+        |> Enum.each(&build/1)
+    end
   end
-
-  defp packages(argv), do: argv |> Enum.join(" ") |> Wrap.Packages.query()
 
   defp build(package) do
     "docker"
