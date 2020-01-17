@@ -1,5 +1,7 @@
 # Wrap
 [![Build Status](https://github.com/fremantle-capital/wrap/workflows/.github/workflows/test.yml/badge.svg)](https://github.com/fremantle-capital/wrap/actions?query=workflow%3A.github%2Fworkflows%2Ftest.yml)
+[![Coverage Status](https://coveralls.io/repos/github/fremantle-capital/wrap/badge.svg?branch=master)](https://coveralls.io/github/fremantle-capital/wrap?branch=master)
+[![hex.pm version](https://img.shields.io/hexpm/v/wrap.svg?style=flat)](https://hex.pm/packages/wrap)
 
 Build, Publish & Deploy Elixir Infrastructure to the Cloud.
 
@@ -13,9 +15,7 @@ Add `wrap` to your list of dependencies in `mix.exs`
 
 ```elixir
 def deps do
-  [
-    {:wrap, "~> 0.0.7"}
-  ]
+  [{:wrap, "~> 0.0.7"}]
 end
 ```
 
