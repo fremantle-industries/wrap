@@ -36,7 +36,7 @@ defmodule Wrap.MixProject do
       {:jason, "~> 1.1"},
       {:mapail, "~> 1.0"},
       {:juice, "~> 0.0.3"},
-      {:dialyxir, "~> 1.0.0-rc.7", only: [:dev], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.10", only: :test},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
