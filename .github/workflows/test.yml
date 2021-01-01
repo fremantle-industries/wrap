@@ -1,3 +1,5 @@
+name: test
+
 on:
   push:
     branches:
@@ -17,20 +19,24 @@ jobs:
         elixir: [1.9.x, 1.10.x]
 
     steps:
-      - uses: actions/checkout@v1.0.0
+      - uses: actions/checkout@v2
 
-      - uses: actions/setup-elixir@v1.2.0
+      - uses: actions/setup-elixir@v1.5
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
 
-      - uses: actions/cache@v1
+      - name: Cache Dependencies
+        uses: actions/cache@v2
         with:
-          path: _build/dev
-          key: dialyzer-plt-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
+          path: |
+            deps
+            _build/dev
+            _build/test
+          key: elixir-cache-${{secrets.CACHE_VERSION}}-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
           restore-keys: |
-            dialyzer-plt-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-${{github.ref}}
-            dialyzer-plt-elixir-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-
+            elixir-cache-${{secrets.CACHE_VERSION}}-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-${{hashFiles('mix.lock')}}-
+            elixir-cache-${{secrets.CACHE_VERSION}}-${{matrix.elixir}}-otp-${{matrix.otp}}-${{runner.os}}-
 
       - name: Install Dependencies
         run: mix deps.get

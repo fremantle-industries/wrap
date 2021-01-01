@@ -1,5 +1,5 @@
 # Wrap
-[![Build Status](https://github.com/fremantle-capital/wrap/workflows/.github/workflows/test.yml/badge.svg)](https://github.com/fremantle-capital/wrap/actions?query=workflow%3A.github%2Fworkflows%2Ftest.yml)
+[![Build Status](https://github.com/fremantle-capital/wrap/workflows/test/badge.svg?branch=master)](https://github.com/fremantle-capital/wrap/actions?query=workflow%3Atest)
 [![Coverage Status](https://coveralls.io/repos/github/fremantle-capital/wrap/badge.svg?branch=master)](https://coveralls.io/github/fremantle-capital/wrap?branch=master)
 [![hex.pm version](https://img.shields.io/hexpm/v/wrap.svg?style=flat)](https://hex.pm/packages/wrap)
 
