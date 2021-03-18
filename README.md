@@ -1,6 +1,6 @@
 # Wrap
-[![Build Status](https://github.com/fremantle-capital/wrap/workflows/test/badge.svg?branch=master)](https://github.com/fremantle-capital/wrap/actions?query=workflow%3Atest)
-[![Coverage Status](https://coveralls.io/repos/github/fremantle-capital/wrap/badge.svg?branch=master)](https://coveralls.io/github/fremantle-capital/wrap?branch=master)
+[![Build Status](https://github.com/fremantle-industries/wrap/workflows/test/badge.svg?branch=main)](https://github.com/fremantle-industries/wrap/actions?query=workflow%3Atest)
+[![Coverage Status](https://coveralls.io/repos/github/fremantle-industries/wrap/badge.svg?branch=main)](https://coveralls.io/github/fremantle-industries/wrap?branch=main)
 [![hex.pm version](https://img.shields.io/hexpm/v/wrap.svg?style=flat)](https://hex.pm/packages/wrap)
 
 Build, Publish & Deploy Elixir Infrastructure to the Cloud.
