@@ -16,12 +16,12 @@ jobs:
     strategy:
       matrix:
         otp: [22.x, 23.x]
-        elixir: [1.9.x, 1.10.x, 1.11.x]
+        elixir: [1.10.x, 1.11.x, 1.12.x]
 
     steps:
       - uses: actions/checkout@v2.3.4
 
-      - uses: erlef/setup-elixir@v1.7
+      - uses: erlef/setup-elixir@v1.7.1
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
@@ -46,8 +46,10 @@ jobs:
       - name: Dialyzer
         run: mix dialyzer
 
-      - name: Coveralls
-        env:
-          MIX_ENV: test
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-        run: mix coveralls.github
+      # Fails TLS check:
+      # (ExCoveralls.ReportUploadError) Failed to upload the report to 'https://coveralls.io' (reason: {:tls_alert, {:unknown_ca, 'TLS client: In state certify at ssl_handshake.erl:1781 generated CLIENT ALERT: Fatal - Unknown CA\n'}}).
+      # - name: Coveralls
+      #   env:
+      #     MIX_ENV: test
+      #     GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      #   run: mix coveralls.github
