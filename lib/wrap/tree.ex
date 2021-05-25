@@ -4,12 +4,12 @@ defmodule Wrap.Tree do
     defstruct ~w(path depth children has_manifest)a
   end
 
-  defmodule PackageDir do
+  defmodule PresentDir do
     def manifest_file, do: "manifest.json"
 
     def read_manifest(path) do
       path
-      |> Path.join(PackageDir.manifest_file())
+      |> Path.join(PresentDir.manifest_file())
       |> File.read()
     end
   end
@@ -26,7 +26,7 @@ defmodule Wrap.Tree do
 
   defp build_dir(path, depth \\ 0) do
     with {:ok, files} <- File.ls(path) do
-      has_manifest = files |> Enum.member?(PackageDir.manifest_file())
+      has_manifest = files |> Enum.member?(PresentDir.manifest_file())
 
       child_dirs =
         files
@@ -55,8 +55,8 @@ defmodule Wrap.Tree do
           |> process_dir()
           |> case do
             {:ok, subtree} ->
-              package_name = child_dir.path |> Path.basename()
-              Map.put(new_tree, package_name, subtree)
+              present_name = child_dir.path |> Path.basename()
+              Map.put(new_tree, present_name, subtree)
 
             _ ->
               new_tree
@@ -70,7 +70,7 @@ defmodule Wrap.Tree do
   defp process_dir(%Dir{has_manifest: true, depth: d}) when d <= 0, do: {:error, :root_manifest}
 
   defp process_dir(%Dir{has_manifest: true} = node) do
-    {:ok, file_contents} = node.path |> PackageDir.read_manifest()
+    {:ok, file_contents} = node.path |> PresentDir.read_manifest()
     {:ok, json} = file_contents |> Jason.decode()
     Mapail.map_to_struct(json, Wrap.Manifest)
   end

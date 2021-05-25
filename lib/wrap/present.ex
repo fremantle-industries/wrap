@@ -1,5 +1,5 @@
-defmodule Wrap.Package do
-  @type t :: %Wrap.Package{
+defmodule Wrap.Present do
+  @type t :: %Wrap.Present{
           name: String.t(),
           dockerfile: String.t(),
           project: String.t(),
@@ -7,21 +7,21 @@ defmodule Wrap.Package do
           version: String.t()
         }
 
-  @enforce_keys ~w(name dockerfile project registry version)a
-  defstruct ~w(name dockerfile project registry version)a
+  @enforce_keys ~w[name dockerfile project registry version]a
+  defstruct ~w[name dockerfile project registry version]a
 
   @spec image(t) :: String.t()
-  def image(%Wrap.Package{project: project, name: name}) do
+  def image(%Wrap.Present{project: project, name: name}) do
     name
     |> hyphenize()
     |> namespace(project)
   end
 
   @spec registry_image(t) :: String.t()
-  def registry_image(%Wrap.Package{} = package) do
-    package
+  def registry_image(%Wrap.Present{} = present) do
+    present
     |> image()
-    |> namespace(package.registry)
+    |> namespace(present.registry)
   end
 
   @spec hyphenize(String.t()) :: String.t()

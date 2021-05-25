@@ -7,9 +7,9 @@ defmodule Mix.Tasks.Wrap.Setup do
   @shortdoc "Setup wrap"
   @spec run([String.t()]) :: no_return
   def run(_argv) do
-    Mix.Generator.create_directory("packages/modules")
-    Mix.Generator.create_directory("packages/releases")
-    Mix.Generator.create_file("packages/modules/.gitkeep", "")
-    Mix.Generator.create_file("packages/releases/.gitkeep", "")
+    Mix.Generator.create_directory("presents")
+    Mix.Generator.create_directory("wrappers")
+    Mix.Generator.create_file("presents/.gitkeep", "")
+    Mix.Generator.create_file("wrappers/.gitkeep", "")
   end
 end

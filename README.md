@@ -5,9 +5,11 @@
 
 Build, Publish & Deploy Elixir Infrastructure to the Cloud.
 
-`wrap` is a set of `mix` tasks that use [Distillery](https://github.com/bitwalker/distillery) to 
-build an OTP release within [Docker](https://www.docker.com/), publish the container to a registry and 
-deploy to cloud infrastructure via [Terraform](https://www.terraform.io/).
+`wrap` is an opinionated set of `mix` tasks that:
+
+- Builds an OTP release within [Docker](https://www.docker.com/)
+- Publishes the container to a registry
+- Deploys cloud infrastructure via [Terraform](https://www.terraform.io/)
 
 ## Installation
 
@@ -15,7 +17,9 @@ Add `wrap` to your list of dependencies in `mix.exs`
 
 ```elixir
 def deps do
-  [{:wrap, "~> 0.0.7"}]
+  [
+    {:wrap, "~> 0.0.7"}
+  ]
 end
 ```
 
@@ -30,19 +34,19 @@ mix wrap.setup
 ## Tasks
 
 ```
-mix wrap.gen.module     # Scaffold a module
+mix wrap.gen.wrapper    # Scaffold a wrapper module
 ```
 
 ```
-mix wrap.gen.release    # Scaffold a release
+mix wrap.gen.present    # Scaffold a release present
 ```
 
 ```
-mix wrap.list           # List packages
+mix wrap.list           # List presents
 ```
 
 ```
-mix wrap.build          # Build docker images from distillery releases
+mix wrap.build          # Build docker images for elixir releases
 ```
 
 ```

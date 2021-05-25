@@ -8,13 +8,11 @@ defmodule Mix.Tasks.Wrap.Build do
 
   @cli_config [
     name: "wrap.build",
-    description: "Build docker images from distillery releases",
+    description: "Build docker images for OTP releases",
     about: """
     Examples:
 
-    mix wrap.build my_package
-    mix wrap.build nested_package.a nested_package.b
-    mix wrap.build nested_package.*
+    mix wrap.build my_present
 
     NOTE: Juice query language https://github.com/rupurt/juice
     """,
@@ -33,12 +31,12 @@ defmodule Mix.Tasks.Wrap.Build do
       {:ok, parse_result} ->
         parse_result.unknown
         |> Enum.join(" ")
-        |> Wrap.Packages.query()
+        |> Wrap.Presents.query()
         |> Enum.each(&build/1)
     end
   end
 
-  defp build(package) do
+  defp build(present) do
     "docker"
     |> System.cmd(
       [
@@ -46,15 +44,15 @@ defmodule Mix.Tasks.Wrap.Build do
         "build",
         ".",
         "-f",
-        package.dockerfile,
+        present.dockerfile,
         "-t",
-        "#{Wrap.Package.image(package)}:latest",
+        "#{Wrap.Present.image(present)}:latest",
         "-t",
-        "#{Wrap.Package.registry_image(package)}:latest",
+        "#{Wrap.Present.registry_image(present)}:latest",
         "--build-arg",
-        "name=#{package.name}",
+        "release_name=#{present.name}",
         "--build-arg",
-        "version=#{package.version}"
+        "version=#{present.version}"
       ],
       into: IO.stream(:stdio, :line)
     )

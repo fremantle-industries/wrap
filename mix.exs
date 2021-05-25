@@ -19,6 +19,20 @@ defmodule Wrap.MixProject do
         "coveralls.detail": :test,
         "coveralls.post": :test,
         "coveralls.html": :test
+      ],
+      releases: [
+        a: [
+          include_executables_for: [:unix],
+          applications: [wrap: :permanent]
+        ],
+        b: [
+          include_executables_for: [:unix],
+          applications: [wrap: :permanent]
+        ],
+        within_c: [
+          include_executables_for: [:unix],
+          applications: [wrap: :permanent]
+        ]
       ]
     ]
   end
@@ -32,7 +46,6 @@ defmodule Wrap.MixProject do
   defp deps do
     [
       {:optimus, "~> 0.2.0"},
-      {:distillery, "~> 2.0"},
       {:jason, "~> 1.1"},
       {:mapail, "~> 1.0"},
       {:juice, "~> 0.0.3"},
@@ -43,7 +56,7 @@ defmodule Wrap.MixProject do
   end
 
   defp description do
-    "Build, Publish & Deploy Elixir Infrastructure to the Cloud with Distillery, Docker & Terraform"
+    "Build, Publish & Deploy Elixir Infrastructure to the Cloud with Docker & Terraform"
   end
 
   defp package do

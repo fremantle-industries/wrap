@@ -1,19 +1,17 @@
 defmodule Mix.Tasks.Wrap.Apply do
   @moduledoc """
-  Apply the terraform definition for packages published to the container registry
+  Apply the terraform definition for presents published to the container registry
   """
 
   use Mix.Task
 
   @cli_config [
     name: "wrap.apply",
-    description: "Deploy packages to the cloud with Terraform",
+    description: "Deploy presents to the cloud with Terraform",
     about: """
     Examples:
 
-    mix wrap.apply my_package
-    mix wrap.apply nested_package.a nested_package.b
-    mix wrap.apply nested_package.*
+    mix wrap.apply my_present
 
     NOTE: Juice query language https://github.com/rupurt/juice
     """,
@@ -32,22 +30,22 @@ defmodule Mix.Tasks.Wrap.Apply do
       {:ok, parse_result} ->
         parse_result.unknown
         |> Enum.join(" ")
-        |> Wrap.Packages.query()
+        |> Wrap.Presents.query()
         |> Enum.each(&apply/1)
     end
   end
 
-  defp apply(package) do
+  defp apply(present) do
     "terraform"
     |> System.cmd(
       [
         "apply",
         "-auto-approve",
         "-var",
-        "release_name=#{Wrap.Package.hyphenize(package.name)}"
+        "release_name=#{Wrap.Present.hyphenize(present.name)}"
       ],
-      cd: "./packages/releases/#{package.name}",
-      env: Wrap.Env.read(package),
+      cd: "#{Wrap.present_release_path()}/#{present.name}",
+      env: Wrap.Env.read(present),
       into: IO.stream(:stdio, :line)
     )
   end

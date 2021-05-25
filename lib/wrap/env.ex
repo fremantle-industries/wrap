@@ -1,9 +1,9 @@
 defmodule Wrap.Env do
-  @type package :: Wrap.Package.t()
+  @type present :: Wrap.Present.t()
 
-  @spec read(package, atom) :: map
-  def read(package, env) do
-    [Wrap.package_release_path(), package.name, ".env.#{env}"]
+  @spec read(present, atom) :: map
+  def read(present, env) do
+    [Wrap.present_release_path(), present.name, ".env.#{env}"]
     |> Path.join()
     |> File.stream!()
     |> Enum.map(&String.trim/1)
@@ -12,6 +12,6 @@ defmodule Wrap.Env do
     |> Enum.into(%{}, &List.to_tuple/1)
   end
 
-  @spec read(package) :: map
-  def read(package), do: read(package, Mix.env())
+  @spec read(present) :: map
+  def read(present), do: read(present, Mix.env())
 end

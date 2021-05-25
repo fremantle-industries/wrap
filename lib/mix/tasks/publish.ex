@@ -12,9 +12,7 @@ defmodule Mix.Tasks.Wrap.Publish do
     about: """
     Examples:
 
-    mix wrap.publish my_package
-    mix wrap.publish nested_package.a nested_package.b
-    mix wrap.publish nested_package.*
+    mix wrap.publish my_present
 
     NOTE: Juice query language https://github.com/rupurt/juice
     """,
@@ -33,17 +31,17 @@ defmodule Mix.Tasks.Wrap.Publish do
       {:ok, parse_result} ->
         parse_result.unknown
         |> Enum.join(" ")
-        |> Wrap.Packages.query()
+        |> Wrap.Presents.query()
         |> Enum.each(&build/1)
     end
   end
 
-  defp build(package) do
+  defp build(present) do
     "docker"
     |> System.cmd(
       [
         "push",
-        "#{Wrap.Package.registry_image(package)}:latest"
+        "#{Wrap.Present.registry_image(present)}:latest"
       ],
       into: IO.stream(:stdio, :line)
     )

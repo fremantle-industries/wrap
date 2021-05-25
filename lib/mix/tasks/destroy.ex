@@ -1,26 +1,24 @@
 defmodule Mix.Tasks.Wrap.Destroy do
   @moduledoc """
-  Destroy the cloud resources used in the deployment for each package
+  Destroy the cloud resources used in the deployment for each present
   """
 
   use Mix.Task
 
   @cli_config [
     name: "wrap.destroy",
-    description: "Destroy cloud resources for deployed packages",
+    description: "Destroy cloud resources for deployed presents",
     about: """
     Examples:
 
-    mix wrap.destroy my_package
-    mix wrap.destroy nested_package.a nested_package.b
-    mix wrap.destroy nested_package.*
+    mix wrap.destroy my_present
 
     NOTE: Juice query language https://github.com/rupurt/juice
     """,
     allow_unknown_args: true
   ]
 
-  @shortdoc "Destroy packages"
+  @shortdoc "Destroy presents"
   @spec run([String.t()]) :: no_return
   def run(argv) do
     Wrap.Mix.Support.setup()
@@ -32,22 +30,22 @@ defmodule Mix.Tasks.Wrap.Destroy do
       {:ok, parse_result} ->
         parse_result.unknown
         |> Enum.join(" ")
-        |> Wrap.Packages.query()
+        |> Wrap.Presents.query()
         |> Enum.each(&destroy/1)
     end
   end
 
-  defp destroy(package) do
+  defp destroy(present) do
     "terraform"
     |> System.cmd(
       [
         "destroy",
         "-auto-approve",
         "-var",
-        "release_name=#{Wrap.Package.hyphenize(package.name)}"
+        "release_name=#{Wrap.Present.hyphenize(present.name)}"
       ],
-      cd: "./packages/releases/#{package.name}",
-      env: Wrap.Env.read(package),
+      cd: "#{Wrap.present_release_path()}/#{present.name}",
+      env: Wrap.Env.read(present),
       into: IO.stream(:stdio, :line)
     )
   end

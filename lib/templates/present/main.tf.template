@@ -18,7 +18,7 @@ variable "machine_type" {
 }
 
 module "my_module" {
-  source = "../../modules/my_module"
+  source = "../../wrappers/my_wrapper"
 
   release_name = "${var.release_name}"
   gcp_region = "${var.gcp_region}"

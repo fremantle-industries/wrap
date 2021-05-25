@@ -1,5 +1,5 @@
 {
   "project": "my-project",
   "registry": "docker.com",
-  "dockerfile": "packages/modules/my_module/Dockerfile"
+  "dockerfile": "Dockerfile"
 }

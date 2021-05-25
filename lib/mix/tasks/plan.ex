@@ -1,21 +1,19 @@
 defmodule Mix.Tasks.Wrap.Plan do
   @moduledoc """
-  Plan the terraform definition for packages published to the container registry
+  Plan the terraform definition for presents published to the container registry
 
-  mix wrap.plan package_a package_b
+  mix wrap.plan present_a present_b
   """
 
   use Mix.Task
 
   @cli_config [
     name: "wrap.plan",
-    description: "Display Terraform plan for packages",
+    description: "Display Terraform plan for presents",
     about: """
     Examples:
 
-    mix wrap.plan my_package
-    mix wrap.plan nested_package.a nested_package.b
-    mix wrap.plan nested_package.*
+    mix wrap.plan my_present
 
     NOTE: Juice query language https://github.com/rupurt/juice
     """,
@@ -34,21 +32,21 @@ defmodule Mix.Tasks.Wrap.Plan do
       {:ok, parse_result} ->
         parse_result.unknown
         |> Enum.join(" ")
-        |> Wrap.Packages.query()
+        |> Wrap.Presents.query()
         |> Enum.each(&plan/1)
     end
   end
 
-  defp plan(package) do
+  defp plan(present) do
     "terraform"
     |> System.cmd(
       [
         "plan",
         "-var",
-        "release_name=#{Wrap.Package.hyphenize(package.name)}"
+        "release_name=#{Wrap.Present.hyphenize(present.name)}"
       ],
-      cd: "./packages/releases/#{package.name}",
-      env: Wrap.Env.read(package),
+      cd: "#{Wrap.present_release_path()}/#{present.name}",
+      env: Wrap.Env.read(present),
       into: IO.stream(:stdio, :line)
     )
   end

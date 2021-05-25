@@ -1,8 +1,8 @@
 defmodule Wrap.TreeTest do
   use ExUnit.Case
 
-  test ".for_path constructs a nested map of package directories with the contents of their manifest" do
-    assert {:ok, tree} = "test/fixtures/valid_packages" |> Path.expand() |> Wrap.Tree.for_path()
+  test ".for_path constructs a nested map of present directories with the contents of their manifest" do
+    assert {:ok, tree} = "test/fixtures/valid_presents" |> Path.expand() |> Wrap.Tree.for_path()
 
     assert %Wrap.Manifest{} = manifest_a = tree |> Map.fetch!("a")
     assert manifest_a.project == "project_a"
