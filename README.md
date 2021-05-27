@@ -31,36 +31,47 @@ Before using `wrap` run the setup task to create the required directory structur
 mix wrap.setup
 ```
 
+## Usage
+
+TODO...
+
+```bash
+```
+
 ## Tasks
 
-```
-mix wrap.gen.wrapper    # Scaffold a wrapper module
-```
-
-```
-mix wrap.gen.present    # Scaffold a release present
+```bash
+$ mix wrap.gen.wrapper    # Scaffold a wrapper module
 ```
 
-```
-mix wrap.list           # List presents
-```
-
-```
-mix wrap.build          # Build docker images for elixir releases
+```bash
+$ mix wrap.gen.present    # Scaffold a release present
 ```
 
-```
-mix wrap.publish        # Publish latest docker images
-```
-
-```
-mix wrap.plan           # Plan terraform definition
+```bash
+$ ix wrap.list           # List presents
 ```
 
-```
-mix wrap.apply          # Apply terraform definition
+```bash
+$ mix wrap.build          # Build docker images for elixir releases
 ```
 
+```bash
+$ mix wrap.publish        # Publish latest docker images
 ```
-mix wrap.destroy        # Destroy terraform resources
+
+```bash
+$ mix wrap.init           # Init the release present for terraform
+```
+
+```bash
+$ mix wrap.plan           # Plan terraform definition
+```
+
+```bash
+$ mix wrap.apply          # Apply terraform definition
+```
+
+```bash
+$ mix wrap.destroy        # Destroy terraform resources
 ```
