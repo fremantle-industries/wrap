@@ -52,7 +52,8 @@ defmodule Mix.Tasks.Wrap.Build do
         "--build-arg",
         "release_name=#{present.name}",
         "--build-arg",
-        "version=#{present.version}"
+        "version=#{present.version}",
+        "--no-cache"
       ],
       into: IO.stream(:stdio, :line)
     )
