@@ -18,7 +18,7 @@ Add `wrap` to your list of dependencies in `mix.exs`
 ```elixir
 def deps do
   [
-    {:wrap, "~> 0.0.8"}
+    {:wrap, "~> 0.0.9"}
   ]
 end
 ```
