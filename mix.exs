@@ -45,7 +45,7 @@ defmodule Wrap.MixProject do
 
   defp deps do
     [
-      {:optimus, "~> 0.2.0"},
+      {:optimus, "~> 0.3.0"},
       {:jason, "~> 1.1"},
       {:mapail, "~> 1.0"},
       {:juice, "~> 0.0.3"},
